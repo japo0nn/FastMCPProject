@@ -1,0 +1,20 @@
+{
+  "description": "A sample MCP server with weather and forecasting capabilities.",
+  "name": "io.github.japo0nn/FastMCPProject", 
+  "packages": [
+    {
+      "registry_name": "nuget",
+      "name": "japo0nn.FastMCPProject",
+      "version": "1.0.0",
+      "package_arguments": [],
+      "environment_variables": []
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/japo0nn/FastMCPProject",
+    "source": "github"
+  },
+  "version_detail": {
+    "version": "1.0.0"
+  }
+}
