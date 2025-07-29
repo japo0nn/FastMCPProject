@@ -57,6 +57,7 @@ This project requires the following tools and technologies to be installed on yo
    ```
 
 5. Run the application:
+  
   ![alt text](image.png)
 
 6. Testing the MCP Server:
