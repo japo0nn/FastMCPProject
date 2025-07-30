@@ -13,8 +13,7 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .AddUserSecrets<Program>(optional: true, reloadOnChange: true);
 
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-
+builder.Services.AddScoped<IOpenWeahterService, OpenWeatherService>();
 builder.Services.AddHttpClient<IHttpClientService, HttpClientService>(client =>
 {
     client.Timeout = TimeSpan.FromMinutes(5);

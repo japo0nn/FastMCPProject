@@ -20,9 +20,17 @@ public class OpenWeatherService(IHttpClientService httpClientService, IConfigura
         try
         {
             _logger.LogInformation("Getting weather for city: {City}, country: {CountryCode}, units: {Units}", city, countryCode, units);
+            
             var geocode = await GetGeocode(city, countryCode, cancellationToken);
 
-            var uri = $"{_configuration["OpenWeather:BaseUri"]}{_configuration["OpenWeather:Endpoints:Weather"]}?appid={_configuration["OpenWeather:ApiKey"]}";
+            var baseUri = _configuration["OpenWeather:BaseUri"];
+            var weatherEndpoint = _configuration["OpenWeather:Endpoints:Weather"];
+            var apiKey = _configuration["OpenWeather:ApiKey"];
+            
+            _logger.LogInformation("Configuration values - BaseUri: {BaseUri}, WeatherEndpoint: {WeatherEndpoint}, ApiKey: {ApiKey}", 
+                baseUri, weatherEndpoint, apiKey);
+            
+            var uri = $"{baseUri}{weatherEndpoint}?appid={apiKey}";
             uri += $"&lat={geocode.Latitude}&lon={geocode.Longitude}";
             if (!string.IsNullOrEmpty(units))
             {
@@ -56,7 +64,14 @@ public class OpenWeatherService(IHttpClientService httpClientService, IConfigura
             _logger.LogInformation("Getting forecast for city: {City}, country: {CountryCode}, units: {Units}, count: {Count}", city, countryCode, units, count);
             var geocode = await GetGeocode(city, countryCode, cancellationToken);
 
-            var uri = $"{_configuration["OpenWeather:BaseUri"]}{_configuration["OpenWeather:Endpoints:Forecast"]}?appid={_configuration["OpenWeather:ApiKey"]}";
+            var baseUri = _configuration["OpenWeather:BaseUri"];
+            var forecastEndpoint = _configuration["OpenWeather:Endpoints:Forecast"];
+            var apiKey = _configuration["OpenWeather:ApiKey"];
+
+            _logger.LogInformation("Configuration values - BaseUri: {BaseUri}, WeatherEndpoint: {WeatherEndpoint}, ApiKey: {ApiKey}", 
+                baseUri, forecastEndpoint, apiKey);
+
+            var uri = $"{baseUri}{forecastEndpoint}?appid={apiKey}";
             uri += $"&lat={geocode.Latitude}&lon={geocode.Longitude}";
             uri += $"&cnt={count}";
             if (!string.IsNullOrEmpty(units))
@@ -98,7 +113,14 @@ public class OpenWeatherService(IHttpClientService httpClientService, IConfigura
         {
             _logger.LogInformation("Getting geocode for city: {City}, country: {CountryCode}", city, countryCode);
 
-            var uri = $"{_configuration["OpenWeather:BaseUri"]}{_configuration["OpenWeather:Endpoints:Geocode"]}?appid={_configuration["OpenWeather:ApiKey"]}";
+            var baseUri = _configuration["OpenWeather:BaseUri"];
+            var geocodeEndpoint = _configuration["OpenWeather:Endpoints:Geocode"];
+            var apiKey = _configuration["OpenWeather:ApiKey"];
+
+            _logger.LogInformation("Configuration values - BaseUri: {BaseUri}, GeocodeEndpoint: {GeocodeEndpoint}, ApiKey: {ApiKey}", 
+                baseUri, geocodeEndpoint, apiKey);
+
+            var uri = $"{baseUri}{geocodeEndpoint}?appid={apiKey}";
             uri += $"&limit=1&q={Uri.EscapeDataString(city)}";
             if (!string.IsNullOrEmpty(countryCode))
             {
